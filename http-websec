@@ -1,0 +1,47 @@
+Introduction
+This document provides guidance and best practices for resolving the security alert commonly identified by Dynamic Application Security Testing (DAST) tools - "Session Cookie Missing HttpOnly Attribute". The absence of the HttpOnly attribute in session cookies can lead to an increased risk of client-side scripts accessing the session cookie, potentially leading to security breaches such as Cross-Site Scripting (XSS) attacks.
+
+Objective
+The primary objective of this document is to guide developers and security teams in mitigating the risks associated with the lack of HttpOnly attributes in session cookies. The guidance aims to ensure that web applications are more secure against client-side attacks.
+
+Background
+What is the HttpOnly Attribute?
+The HttpOnly attribute is a flag included in a Set-Cookie HTTP header. When set, it instructs the browser to prevent client-side scripts from accessing cookies. This attribute is essential for session cookies to mitigate the risk of XSS attacks, where an attacker might try to steal session tokens.
+
+Importance in Application Security
+Without the HttpOnly attribute, session cookies are accessible through client-side scripting languages like JavaScript, making them vulnerable to theft and misuse. This vulnerability can lead to unauthorized access and other security breaches.
+
+Issue Identification
+DAST Alert
+Dynamic Application Security Testing tools flag cookies without the HttpOnly attribute as a security concern. The alert typically includes:
+
+The name of the cookie
+The URL where the cookie is set
+Recommendations for resolution
+Resolution Steps
+Identify Affected Cookies: Review the DAST report to identify which cookies are missing the HttpOnly attribute.
+
+Code Analysis: Examine the server-side code where cookies are set. Locate the code responsible for setting session cookies.
+
+Modify Cookie Settings:
+
+In most server-side languages, set the HttpOnly attribute to true when creating cookies. For example, in PHP, use setcookie(name, value, [expire], [path], [domain], [secure], [httponly]);
+Ensure that all session cookies have the HttpOnly attribute set.
+Testing:
+
+Conduct thorough testing to ensure that the HttpOnly attribute is correctly set on all session cookies.
+Re-run DAST scans to confirm that the issue is resolved.
+Review and Audit: Regularly review and audit cookie settings as part of the application's security posture.
+
+Best Practices
+Regular Scanning: Continuously scan applications with DAST tools to identify and resolve security issues promptly.
+Secure Cookie Attributes: Along with HttpOnly, ensure Secure and SameSite attributes are appropriately set to enhance security.
+Education and Training: Educate development teams about secure coding practices, including proper handling of cookies.
+Logging and Monitoring: Implement logging and monitoring to detect and respond to security incidents involving cookies.
+Conclusion
+Addressing the "Session Cookie Missing HttpOnly Attribute" alert is crucial for the security of web applications. By following the steps outlined in this document, teams can mitigate the associated risks and enhance the overall security posture of their applications.
+
+Document Revision History
+Version	Date	Description of Changes
+1.0	[Insert Date]	Initial release of the document.
+This document should be adapted to the specific context of your organization and the technologies used. It's also essential to keep this document updated as practices and technologies evolve.
